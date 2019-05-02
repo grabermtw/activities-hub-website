@@ -1,0 +1,88 @@
+<html>
+<!-- THIS ALL NEEDS TO BE UPDATED!!! -->
+<body>
+    <input id="search_field" type="text" placeholder="Search for a food!" value={{{ search-term }}}>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <script>
+    </script>
+
+    {{#each data}}
+
+    <table class="food" name="{{ name }}" id="{{ name }}">
+        <tr class="food_name">
+            <td>Food Name:</td>
+            <td> {{ name }}</td>
+        </tr>
+        <tr class="rating">
+            <td>Rating:</td>
+            <td> {{ rating }}/10</td>
+        </tr>
+        {{#each reviews}}
+        
+            <tr class="underline_text">
+                <td>Reviewer Name:</td>
+                <td>{{ reviewer_name }}</td>
+            </tr>
+            <tr>
+                <td>Reviewer's Rating:</td>
+                <td>{{ rating }}/10</td>
+            </tr>
+            <tr>
+                <td>Review Title:</td>
+                <td>{{ title }}</td>
+            </tr>
+            <tr>
+                <td>Review:</td>
+                <td>{{ content }}</td>
+            </tr>
+            <tr>
+                <td>Date:</td>
+                <td>{{ time }}</td>
+            </tr>
+        
+        {{/each}}
+         <tr class="id">
+            <td>Food ID:</td>
+            <td> {{ food_id }}</td>
+        </tr>
+    </table>
+
+    {{/each}}
+
+    <p id="NoResults">
+        {{search_msg}}
+    </p>
+
+    <script>
+        $("#search_field").on("keyup", function () {
+            console.log("keyup");
+            var search_term = $("#search_field").val().toLowerCase();
+            var elems = document.getElementsByClassName("food");
+            
+            for (var i = 0; i < elems.length; i++) {
+                console.log(elems[i].id.toLowerCase());
+                if (!elems[i].id.toLowerCase().includes(search_term)) {
+                    console.log("we should hide this" + elems[i].id);
+                    elems[i].setAttribute("style", "display: none");
+                   
+                }
+                else {
+                    elems[i].setAttribute("style", "display: block");
+                   
+                }
+            }
+            $("#NoResults").setAttribute("style", "display: block");
+            for (var i = 0; i < elems.length; i++){
+                if (elems[i].getAttribute("style") != "display: none"){
+                    $("#NoResults").setAttribute("style", "display: none");
+                }
+            }
+        });
+
+    </script>
+
+
+</body>
+
+</html>

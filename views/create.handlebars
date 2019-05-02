@@ -1,0 +1,28 @@
+<!-- THIS ALL NEEDS TO BE UPDATED!!! -->
+
+<h1 id="createTitle">Create New Food Review</h1>
+<article class="create">
+    <form method="POST" action="/create">
+        <div class="input-field">
+            <label>What food are you reviewing?</label>
+            <input type="text" name="food" size="50" placeholder="Write the food here">
+        </div>
+         <div class="input-field">
+            <label>Your Name:</label>
+            <input type="text" name="reviewer_name" size="50" placeholder="Your name here">
+        </div>
+        <div class="input-field">
+            <label>What would you rate this food out of 10?</label>
+            <input type="number" min=0 max=10 name="rating" size="50" placeholder="0-10">
+        </div>
+        <div class="input-field">
+            <label>Your Review Title:</label>
+            <input type="text" name="title" size="50" placeholder="Write your review's title here!">
+        </div>
+        <div class="input-field">
+            <label>Your Review:</label>
+            <textarea type="text" name="content" rows="10" placeholder="Write your review here!"></textarea>
+        </div>
+        <button type="submit">Submit your review! </button>
+    </form>
+</article>

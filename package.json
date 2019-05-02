@@ -1,0 +1,21 @@
+{
+    "name": "p6-activities-hub",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.17.1",
+        "express": "^4.15.2",
+        "express-handlebars": "^3.0.0",
+        "morgan": "^1.8.1",
+        "marked": "^0.3.6",
+        "moment": "^2.17.1"
+    }
+}
