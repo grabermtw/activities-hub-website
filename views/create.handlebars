@@ -2,7 +2,7 @@
 
 <h1 id="createTitle">Create New Activity</h1>
 <article class="create">
-    <form method="POST" action="/create">
+    <form method="POST" action="/api/add/activity">
         <div class="input-field">
             <label>What is your activity?</label>
             <input type="text" name="name" size="50" placeholder="Write your activity here">
@@ -23,6 +23,10 @@
             <label>When:</label>
             <textarea type="text" name="when" rows="10" placeholder="When is your event?"></textarea>
         </div>
-        <button type="submit">Submit your review! </button>
+        <div class="input-field">
+            <label>Author:</label>
+            <textarea type="text" name="author" rows="10" placeholder="Who are you?"></textarea>
+        </div>
+        <button type="submit">Submit your activity!</button>
     </form>
 </article>
