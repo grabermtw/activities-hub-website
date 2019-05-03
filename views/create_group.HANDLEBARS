@@ -1,0 +1,26 @@
+<h1 id="createTitle">Create New Group</h1>
+<article class="create">
+    <form method="POST" action="/create">
+        <div class="input-field">
+            <label>Name of your group:</label>
+            <input type="text" name="name" size="50" placeholder="Group name...">
+        </div>
+         <div class="input-field">
+            <label>Description of your group:</label>
+            <textarea type="text" name="review" rows="20" placeholder="Group description..."></textarea>
+        </div>
+        <div class="input-field">
+            <label>Group member count:</label>
+            <input type="number" min=1 name="membercount" size="50" placeholder="1">
+        </div>
+        <div class="input-field">
+            <label>Location of your group:</label>
+            <input type="text" name="location" size="50" placeholder="Group location...">
+        </div>
+        <div class="input-field">
+            <label>Group contact info:</label>
+            <input type="text" name="location" size="50" placeholder="Group contact info...">
+        </div>
+        <button type="submit">Submit your group!</button>
+    </form>
+</article>
