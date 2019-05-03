@@ -70,6 +70,8 @@ var groupSchema = new mongoose.Schema({
     
 });
 
-var Activity = mongoose.model('Activity', activitySchema);
+var comment = mongoose.model('Comment', commentSchema);
+var activity = mongoose.model('Activity', activitySchema);
+var group = mongoose.model('Group', groupSchema);
 
-module.exports = { Activity };
+module.exports = { comment, activity, group };
