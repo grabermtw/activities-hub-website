@@ -6,7 +6,8 @@ var moment = require('moment');
 var mongoose = require('mongoose');
 var dotenv = require('dotenv');
 var marked = require('marked');
-var Activity = require('./models/activity');
+var schemas = require('./models/activity');
+var Activity = schemas.activity;
 
 var app = express();
 
