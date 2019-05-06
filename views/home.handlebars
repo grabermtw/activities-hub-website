@@ -1,7 +1,7 @@
 <html>
 <!-- THIS ALL NEEDS TO BE UPDATED!!! -->
 <body>
-    <input id="search_field" type="text" placeholder="Search for a food!" value={{{ search-term }}}>
+    <input id="search_field" type="text" placeholder="Search for an activity!" value={{{ search-term }}}>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
     <script>
@@ -11,23 +11,18 @@
 
     <table class="activities" name="{{ name }}" id="{{ name }}">
         <tr class="activity_name">
-            <td>Activity Name:</td>
             <td> {{ name }}</td>
         </tr>
          <tr class="author">
-            <td>Author:</td>
             <td> {{ author }} </td>
         </tr>
         <tr class="description">
-            <td>Description:</td>
             <td> {{ description }} </td>
         </tr>
         <tr class="where">
-            <td>Where:</td>
             <td> {{ where }} </td>
         </tr>
         <tr class="when">
-            <td>When:</td>
             <td> {{ when }} </td>
         </tr>
         {{#each comments}}
@@ -91,10 +86,7 @@
                 }
             }
         });
-
     </script>
-
-
 </body>
 
 </html>

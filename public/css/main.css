@@ -1,21 +1,20 @@
 /* This should probably be changed... */
 body{
-    background-image: url("https://i.ytimg.com/vi/HGaMMPls-Rs/maxresdefault.jpg");
+    background-color: white;
 }
 
 .food{
     font-family: Arial, Helvetica, sans-serif;
-    background-color:rgba(255, 255, 126, 0.75);
     margin: 0 auto;
 }
 
 .food_name{
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 20pt;
 }
 
 .rating{
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .id{
@@ -39,41 +38,52 @@ p{
 }
 
 .nav{
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    background-color: red;
+    font-family: Arial, Helvetica, sans-serif; 
     color:white;
     text-align: center;
 }
 
-a:visited{
-    color:white;
+a:link, a:visited {
+    margin-top: 5px;
+    border-radius: 5px;
+    background-color: rgb(255, 0, 0);
+    color: white;
+    padding: 5px 5px;
+    text-align: center; 
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:hover, a:active {
+    background-color: rgb(255, 107, 107);
+}
+
+.logo {
+    padding-left: 25px;
+    padding-right: 25px;
 }
 .create{
-    font-family: Arial, Helvetica, sans-serif;
-    background-color:rgba(255, 255, 126, .75);  
+    font-family: Arial, Helvetica, sans-serif; 
     margin: 0 auto;
     text-align: center;
 
 }
 
 #createTitle{
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     color: white;
-    background-color:red;
     text-align: center;
 }
 
-#mainTitle{
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color: white;
-    background-color:red;
+#main_title{
+    font-family: Arial, Helvetica, sans-serif;
+    color: red;
     text-align: center;
 }
 
 #subTitle{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     color: white;
     font-size: 10pt;
-    background-color:red;
     text-align: center;
 }
