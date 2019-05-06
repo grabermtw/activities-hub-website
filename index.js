@@ -11,6 +11,9 @@ var Activity = schemas.activity;
 
 var app = express();
 
+// Load environment variables
+dotenv.load();
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,10 +23,16 @@ app.use('/public', express.static('public'));
 var dataUtil = require("./data-utils");
 
 //OLD!!!!
-var _DATA = dataUtil.loadData().food_reviews;
-var foods = [];
-_DATA.forEach(element => foods.push(element.name));
+//var _DATA = dataUtil.loadData().food_reviews;
+//var foods = [];
+//_DATA.forEach(element => foods.push(element.name));
 
+//Activities data
+var act_DATA;
+Activity.find({},function(err, myActivities){
+  if(err) throw err
+  act_DATA = myActivities;
+})
 
 // Connect to MongoDB
 console.log(process.env.MONGODB)
@@ -33,11 +42,6 @@ mongoose.connection.on('error', function () {
   process.exit(1);
 });
 
-// Setup Express App
-var app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
 
 // FROM THE MIDTERM REQUIREMENTS:
 /* Add whatever endpoints you need! Remember that your API endpoints must
@@ -46,7 +50,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
  */
 
 app.get('/', function (req, res) {
-  res.render("home", { data: _DATA, search_msg: "Not finding what you're looking for? Be the first to add that activity!" });
+  Activity.find({},function(err, myActivities){
+    if(err) throw err
+    act_DATA = myActivities;
+  });
+  res.render("home", { data: act_DATA, search_msg: "Not finding what you're looking for? Be the first to add that activity!" });
 });
 
 

@@ -9,28 +9,40 @@
 
     {{#each data}}
 
-    <table class="food" name="{{ name }}" id="{{ name }}">
-        <tr class="food_name">
-            <td>Food Name:</td>
+    <table class="activities" name="{{ name }}" id="{{ name }}">
+        <tr class="activity_name">
+            <td>Activity Name:</td>
             <td> {{ name }}</td>
         </tr>
-        <tr class="rating">
-            <td>Rating:</td>
-            <td> {{ rating }}/10</td>
+         <tr class="author">
+            <td>Author:</td>
+            <td> {{ author }} </td>
         </tr>
-        {{#each reviews}}
+        <tr class="description">
+            <td>Description:</td>
+            <td> {{ description }} </td>
+        </tr>
+        <tr class="where">
+            <td>Where:</td>
+            <td> {{ where }} </td>
+        </tr>
+        <tr class="when">
+            <td>When:</td>
+            <td> {{ when }} </td>
+        </tr>
+        {{#each comments}}
         
             <tr class="underline_text">
-                <td>Reviewer Name:</td>
-                <td>{{ reviewer_name }}</td>
+                <td>Commenter:</td>
+                <td>{{ author }}</td>
             </tr>
             <tr>
-                <td>Reviewer's Rating:</td>
-                <td>{{ rating }}/10</td>
+                <td>Hype Rating:</td>
+                <td>{{ hypeRating }}/10</td>
             </tr>
             <tr>
-                <td>Review Title:</td>
-                <td>{{ title }}</td>
+                <td>Comment:</td>
+                <td>{{ comment }}</td>
             </tr>
             <tr>
                 <td>Review:</td>
@@ -43,8 +55,8 @@
         
         {{/each}}
          <tr class="id">
-            <td>Food ID:</td>
-            <td> {{ food_id }}</td>
+            <td>Activity ID:</td>
+            <td> {{ id }}</td>
         </tr>
     </table>
 
@@ -58,7 +70,7 @@
         $("#search_field").on("keyup", function () {
             console.log("keyup");
             var search_term = $("#search_field").val().toLowerCase();
-            var elems = document.getElementsByClassName("food");
+            var elems = document.getElementsByClassName("activities");
             
             for (var i = 0; i < elems.length; i++) {
                 console.log(elems[i].id.toLowerCase());
