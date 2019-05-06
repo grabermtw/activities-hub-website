@@ -58,7 +58,8 @@ app.get('/', function (req, res) {
 });
 
 
-// -- SORT OF DONE? -- The "finding a random activity" part should theoretically work, how that data gets used/passed in can be changed
+// -- THEORETICALLY THIS SHOULD WORK -- need to use something other than estimatedDocumentCount(), it doesn't like that for somereason.
+// check the mongoose documentation
 app.get('/random', function (req, res) {
   //get random number to skip through
   var rando = Math.floor(Math.random() * Activity.estimatedDocumentCount());
