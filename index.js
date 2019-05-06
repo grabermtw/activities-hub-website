@@ -8,6 +8,7 @@ var dotenv = require('dotenv');
 var marked = require('marked');
 var schemas = require('./models/activity');
 var Activity = schemas.activity;
+var Group = schemas.group;
 
 var app = express();
 
@@ -27,12 +28,19 @@ var dataUtil = require("./data-utils");
 //var foods = [];
 //_DATA.forEach(element => foods.push(element.name));
 
-//Activities data
+// Activities data
 var act_DATA;
 Activity.find({},function(err, myActivities){
   if(err) throw err
   act_DATA = myActivities;
-})
+});
+
+// Group Data
+var group_DATA;
+Activity.find({}, function(err, myGroups) {
+	if (err) throw err;
+	group_DATA = myGroups;
+});
 
 // Connect to MongoDB
 console.log(process.env.MONGODB)
@@ -68,8 +76,16 @@ app.get('/random', function (req, res) {
 })
 
 // -- DONE -- renders page to create a new activity (that page is not done)
-app.get("/create", function (req, res) {
+app.get("/add/activity", function (req, res) {
   res.render('create');
+});
+
+app.get("/add/group", function (req, res) {
+  res.render('create_group');
+});
+
+app.get("/chat", function (req, res) {
+  res.render('chat');
 });
 
 // -- DONE -- adds new activity via postman
@@ -85,7 +101,7 @@ app.post('/api/add/activity', function(req, res) {
 
   activity.save(function(err) {
       if(err) throw err
-      return res.send("Activity uploaded!")
+      return res.send("Activity added!")
   })
 });
 
@@ -107,6 +123,42 @@ app.post('/add/activity', function(req, res) {
         act_DATA = myActivities;
       });
       res.redirect("/");
+  })
+});
+
+// add new group from Add Group page
+app.post('/add/group', function(req, res) {
+  var group = new Group({
+      name: req.body.name,
+      description: req.body.description,
+      memberCount: req.body.membercount,
+      location: req.body.location,
+      contactInfo: req.body.contact
+  })
+
+  group.save(function(err) {
+      if(err) throw err
+      Group.find({},function(err, myGroups){
+        if(err) throw err
+        group_DATA = myGroups;
+      });
+      res.redirect("/");
+  })
+});
+
+// add new group via POST request
+app.post('/api/add/group', function(req, res) {
+  var group = new Group({
+      name: req.body.name,
+      description: req.body.description,
+      memberCount: req.body.membercount,
+      location: req.body.location,
+      contactInfo: req.body.contact
+  })
+
+  group.save(function(err) {
+      if(err) throw err
+      return res.send("Group added!")
   })
 });
 

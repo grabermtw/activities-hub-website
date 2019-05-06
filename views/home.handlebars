@@ -1,32 +1,35 @@
 <html>
 <!-- THIS ALL NEEDS TO BE UPDATED!!! -->
 <body>
-    <input id="search_field" type="text" placeholder="Search for an activity!" value={{{ search-term }}}>
+    <input id="search_field" type="text" placeholder="Search activites by name..." value={{{ search-term }}}>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
     <script>
     </script>
 
+    <div id="recent_title">Recently Posted Activities</div>
     {{#each data}}
 
     <table class="activities" name="{{ name }}" id="{{ name }}">
-        <tr class="activity_name">
-            <td> {{ name }}</td>
-        </tr>
-         <tr class="author">
-            <td> {{ author }} </td>
-        </tr>
-        <tr class="description">
-            <td> {{ description }} </td>
-        </tr>
-        <tr class="where">
-            <td> {{ where }} </td>
-        </tr>
-        <tr class="when">
-            <td> {{ when }} </td>
-        </tr>
+    	<div class="activity">
+	        <tr class="activity_name">
+	            <td> {{ name }}</td>
+	        </tr>
+	         <tr class="author">
+	            <td> Hosted by {{ author }} </td>
+	        </tr>
+	        <tr class="description">
+	            <td> {{ description }} </td>
+	        </tr>
+	        <tr class="where">
+	            <td> At {{ where }} </td>
+	        </tr>
+	        <tr class="when">
+	            <td> Starts {{ when }} </td>
+	        </tr>
+    	</div>
         {{#each comments}}
-        
+        <div class="comment">
             <tr class="underline_text">
                 <td>Commenter:</td>
                 <td>{{ author }}</td>
@@ -47,14 +50,13 @@
                 <td>Date:</td>
                 <td>{{ time }}</td>
             </tr>
-        
+        </div>
         {{/each}}
          <tr class="id">
             <td>Activity ID:</td>
             <td> {{ id }}</td>
         </tr>
     </table>
-
     {{/each}}
 
     <p id="NoResults">
