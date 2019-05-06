@@ -71,7 +71,7 @@ app.get("/create", function (req, res) {
   res.render('create');
 });
 
-// -- DONE -- adds new activity
+// -- DONE -- adds new activity via postman
 app.post('/api/add/activity', function(req, res) {
   var activity = new Activity({
       name: req.body.name,
@@ -88,6 +88,26 @@ app.post('/api/add/activity', function(req, res) {
   })
 });
 
+// -- DONE -- adds new activity from Add Activity page
+app.post('/add/activity', function(req, res) {
+  var activity = new Activity({
+      name: req.body.name,
+      description: req.body.description,
+      where: req.body.where,
+      when: req.body.when,
+      author: req.body.author,
+      comments: []
+  })
+
+  activity.save(function(err) {
+      if(err) throw err
+      Activity.find({},function(err, myActivities){
+        if(err) throw err
+        act_DATA = myActivities;
+      });
+      res.redirect("/");
+  })
+});
 
 // -- DONE -- adds new comment to an activity by ID
 app.post('/api/add/activity/:id/comment', function (req, res) {
