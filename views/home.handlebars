@@ -1,5 +1,6 @@
 <html>
-<!-- THIS ALL NEEDS TO BE UPDATED!!! -->
+<!-- THIS HAS MOSTLY BEEN UPDATED!!! -->
+
 <body>
     <input id="search_field" type="text" placeholder="Search activites by name..." value={{{ search-term }}}>
 
@@ -10,23 +11,23 @@
     <div id="recent_title">Recently Posted Activities</div>
     {{#each data}}
     <table class="activities" name="{{ name }}" id="{{ name }}">
-    	<div class="activity">
-	        <tr class="activity_name">
-	            <td> {{ name }}</td>
-	        </tr>
-	         <tr class="author">
-	            <td> Hosted by {{ author }} </td>
-	        </tr>
-	        <tr class="description">
-	            <td> {{ description }} </td>
-	        </tr>
-	        <tr class="where">
-	            <td> At {{ where }} </td>
-	        </tr>
-	        <tr class="when">
-	            <td> Starts {{ when }} </td>
-	        </tr>
-    	</div>
+        <div class="activity">
+            <tr class="activity_name">
+                <td> {{ name }}</td>
+            </tr>
+            <tr class="author">
+                <td> Hosted by {{ author }} </td>
+            </tr>
+            <tr class="description">
+                <td> {{ description }} </td>
+            </tr>
+            <tr class="where">
+                <td> At {{ where }} </td>
+            </tr>
+            <tr class="when">
+                <td> Starts {{ when }} </td>
+            </tr>
+        </div>
         {{#each comments}}
         <div class="comment">
             <tr class="underline_text">
@@ -41,17 +42,24 @@
                 <td>Comment:</td>
                 <td>{{ comment }}</td>
             </tr>
-            <tr>
-                <td>Review:</td>
-                <td>{{ content }}</td>
-            </tr>
-            <tr>
-                <td>Date:</td>
-                <td>{{ time }}</td>
-            </tr>
         </div>
         {{/each}}
-         <tr class="id">
+        <div class="comment adder">
+            <form method="POST" action="/add/activity/{{ id }}/comment">
+                <div class="input-field">
+                    <input type="number" min=0 max=10 name="hypeRating" size="50" placeholder="Hype">
+                </div>
+                <div class="input-field">
+                    <textarea type="text" name="comment" rows="2" placeholder="Your comment..."></textarea>
+                </div>
+                <div class="input-field">
+                    <input type="text" name="author" size="20" placeholder="Your name...">
+                </div>
+                <button type="submit">Submit a comment!</button>
+            </form>
+        </div>
+
+        <tr class="id">
             <td>Activity ID:</td>
             <td> {{ id }}</td>
         </tr>
@@ -67,22 +75,22 @@
             console.log("keyup");
             var search_term = $("#search_field").val().toLowerCase();
             var elems = document.getElementsByClassName("activities");
-            
+
             for (var i = 0; i < elems.length; i++) {
                 console.log(elems[i].id.toLowerCase());
                 if (!elems[i].id.toLowerCase().includes(search_term)) {
                     console.log("we should hide this" + elems[i].id);
                     elems[i].setAttribute("style", "display: none");
-                   
+
                 }
                 else {
                     elems[i].setAttribute("style", "display: block");
-                   
+
                 }
             }
             $("#NoResults").setAttribute("style", "display: block");
-            for (var i = 0; i < elems.length; i++){
-                if (elems[i].getAttribute("style") != "display: none"){
+            for (var i = 0; i < elems.length; i++) {
+                if (elems[i].getAttribute("style") != "display: none") {
                     $("#NoResults").setAttribute("style", "display: none");
                 }
             }

@@ -24,7 +24,7 @@ var activitySchema = new mongoose.Schema({
    
     name: {
         type: String,
-        required: true
+       // required: true
     },
     description: {
         type: String
@@ -37,7 +37,7 @@ var activitySchema = new mongoose.Schema({
     },
     author: {
         type: String,
-        required: true
+    //    required: true
     },
     comments: [commentSchema]
 });
@@ -57,7 +57,7 @@ var groupSchema = new mongoose.Schema({
     },
     memberCount: {
         type: Number,
-        required: true
+  //      required: true
     },
     location: {
         type: String,
@@ -65,7 +65,7 @@ var groupSchema = new mongoose.Schema({
     },
     contactInfo: {
         type: String,
-        required: true
+     //   required: true
     },
     
 });

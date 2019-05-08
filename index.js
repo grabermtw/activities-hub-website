@@ -95,7 +95,9 @@ app.get("/groups", function (req, res) {
 
 // -- DONE -- adds new activity via postman
 app.post('/api/add/activity', function(req, res) {
+  console.log(req.body.name);
   var activity = new Activity({
+    
       name: req.body.name,
       description: req.body.description,
       where: req.body.where,
@@ -167,10 +169,34 @@ app.post('/api/add/group', function(req, res) {
   })
 });
 
+// -- DONE -- adds new comment to an activity by ID from Main.Handlebars
+app.post('/add/activity/:id/comment', function (req, res) {
+
+  Activity.findOne({ _id: req.params.id }, function (err, activity) {
+    if (err) throw err
+    if (!activity) return res.send("No activity of id exists")
+    var comment = {
+      hypeRating: parseFloat(req.body.hypeRating),
+      comment: req.body.comment,
+      author: req.body.author,
+    }
+    /* mongo $pushAll is deprecated (mongoose.push builds ontop of $pushall)
+        instead we use .concat()
+    */
+    activity.comments = activity.comments.concat([comment])
+    activity.save(function (err) {
+      if (err) throw err
+      res.redirect("/");
+      
+    })
+  });
+});
+
+
 // -- DONE -- adds new comment to an activity by ID
 app.post('/api/add/activity/:id/comment', function (req, res) {
 
-  Host.findOne({ _id: req.params.id }, function (err, activity) {
+  Activity.findOne({ _id: req.params.id }, function (err, activity) {
     if (err) throw err
     if (!activity) return res.send("No activity of id exists")
     var comment = {
