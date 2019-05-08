@@ -135,7 +135,7 @@ a:hover, a:active {
     color: rgb(119, 119, 119);
 }
 
-/* form {
+ form {
      background: #000;
      padding: 3px;
      position: fixed;
@@ -143,19 +143,26 @@ a:hover, a:active {
      width: 100%;
  }
  
+ /*
+ Input box adjustments
+ */
  form input {
      border: 0;
      padding: 10px;
-     width: 90%;
-     margin-right: .5%;
+     width: 89%;
+     /*margin-right: .5%;*/
+     display: inline-block;
  }
  
+ /*
+ Button adjustments
+ */
  form button {
      width: 9%;
-     background: #00E3FE;
+     background: red;
      border: none;
      padding: 10px;
- }*/
+ }
 
  .hub {
   display: inline-block;
@@ -169,6 +176,12 @@ a:hover, a:active {
   /*transform: translate(-50%, -50%);*/
   /*float:left;*/
 }
+
+/* * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }*/
 
 .hub span:nth-child(2) {
   background: red;
@@ -186,8 +199,9 @@ a:hover, a:active {
  
  #messages li {
      padding: 5px 10px;
+     background: red;
  }
  
  #messages li:nth-child(odd) {
-     background: #eee;
+     background: grey;
  }

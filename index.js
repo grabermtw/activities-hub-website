@@ -13,8 +13,6 @@ var io = require('socket.io')(http);
 var Activity = schemas.activity;
 var Group = schemas.group;
 
-var app = express();
-
 // Load environment variables
 dotenv.load();
 
@@ -188,10 +186,12 @@ app.post('/api/add/activity/:id/comment', function (req, res) {
 });
 
 
+// activates http listener
 // http.listen(3000, function() {
 //     console.log('Chat running');
 // });
 
+// connects chatroom socket
 io.on('connection', function(socket) {
     console.log('NEW connection.');
     io.on('disconnect', function(){
@@ -212,6 +212,6 @@ app.delete('/api/activity/:id', function(req, res) {
 
 // -- DONE --
 let port = process.env.PORT || 3000;
-app.listen(port, function () {
+http.listen(port, function () {
   console.log(`Listening on port ${port}!`);
 });
