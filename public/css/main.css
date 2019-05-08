@@ -110,7 +110,17 @@ a:hover, a:active {
     border-radius: 5px;
 }
 
+.group {
+    border: 2px solid gray;
+    border-radius: 5px;
+}
+
 .activity_name {
+    font-size: 20px;
+    color: gray;
+}
+
+.group_name {
     font-size: 20px;
     color: gray;
 }
@@ -131,6 +141,16 @@ a:hover, a:active {
 }
 
 .when {
+    font-size: 15px;
+    color: rgb(119, 119, 119);
+}
+
+.member_count {
+    font-size: 15px;
+    color: rgb(119, 119, 119);
+}
+
+.group_contact {
     font-size: 15px;
     color: rgb(119, 119, 119);
 }

@@ -38,7 +38,7 @@ Activity.find({},function(err, myActivities){
 
 // Group Data
 var group_DATA;
-Activity.find({}, function(err, myGroups) {
+Group.find({}, function(err, myGroups) {
 	if (err) throw err;
 	group_DATA = myGroups;
 });
@@ -78,15 +78,19 @@ app.get('/random', function (req, res) {
 
 // -- DONE -- renders page to create a new activity (that page is not done)
 app.get("/add/activity", function (req, res) {
-  res.render('create');
+  	res.render('create');
 });
 
 app.get("/add/group", function (req, res) {
-  res.render('create_group');
+  	res.render('create_group');
 });
 
 app.get("/chat", function (req, res) {
-  res.render('chat');
+  	res.render('chat');
+});
+
+app.get("/groups", function (req, res) {
+	res.render("view_groups", { data: group_DATA })
 });
 
 // -- DONE -- adds new activity via postman
