@@ -7,6 +7,9 @@ var mongoose = require('mongoose');
 var dotenv = require('dotenv');
 var marked = require('marked');
 var schemas = require('./models/activity');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var Activity = schemas.activity;
 var Group = schemas.group;
 
@@ -184,6 +187,20 @@ app.post('/api/add/activity/:id/comment', function (req, res) {
   });
 });
 
+
+// http.listen(3000, function() {
+//     console.log('Chat running');
+// });
+
+io.on('connection', function(socket) {
+    console.log('NEW connection.');
+    io.on('disconnect', function(){
+        console.log('Oops. A user disconnected.');
+    });
+    socket.on('chat message', function(msg) {
+        io.emit('chat message', msg);
+    });
+});
 
 // -- DONE -- deletes activity by ID
 app.delete('/api/activity/:id', function(req, res) {
