@@ -70,10 +70,13 @@ app.get('/', function (req, res) {
 // -- THEORETICALLY THIS SHOULD WORK -- need to use something other than estimatedDocumentCount(), it doesn't like that for somereason.
 // check the mongoose documentation
 app.get('/random', function (req, res) {
-  //get random number to skip through
-  var rando = Math.floor(Math.random() * Activity.estimatedDocumentCount());
-
-  res.render("home", { data: [Activity.findOne().skip(rando)] })
+  
+  Activity.find({},function(err, myActivities){
+    if(err) throw err
+    act_DATA = myActivities;
+  });
+  var rand = Math.floor(Math.random() * Math.floor(act_DATA.length));
+  res.render("home", { data: [act_DATA[rand]] })
 })
 
 // -- DONE -- renders page to create a new activity (that page is not done)
