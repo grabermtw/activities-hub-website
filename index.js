@@ -363,15 +363,15 @@ io.on('connection', function (socket) {
 
 // -- NOT DONE -- deletes activity by ID
 app.delete('/api/activity/:id', function (req, res) {
-  Activity.findByIdAndRemove(req.param.id, function (err, activity) {
-    if (!activity) return res.send("Not Deleted")
+  Activity.findByIdAndRemove(mongoose.Types.ObjectId(req.params.id), function (err, activity) {
+    if (!activity) return res.send("Not Deleted: " + req.params.id)
     res.send("Deleted activity")
   });
 });
 
 // -- NOT DONE -- deletes group by ID
 app.delete('/api/group/:id', function (req, res) {
-  Group.findByIdAndRemove(req.param.id, function (err, group) {
+  Group.findByIdAndRemove(req.params.id, function (err, group) {
     if (!group) return res.send("Not Deleted")
     res.send("Deleted group")
   });

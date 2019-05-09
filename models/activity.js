@@ -7,8 +7,8 @@ var commentSchema = new mongoose.Schema({
         type: Number,
         min: 0.0,
         max: 10.0,
-        required: true
-    },
+      required: true
+      },
     comment: {
         type: String
     },
