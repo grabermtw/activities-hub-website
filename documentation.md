@@ -9,7 +9,7 @@ Date: 5/2/2019
 
 Project Topic: Activities Hub
 
-URL: 
+URL: https://activities-hub.herokuapp.com/
 
 ---
 
