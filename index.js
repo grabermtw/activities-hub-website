@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var dotenv = require('dotenv');
 var marked = require('marked');
 var schemas = require('./models/activity');
+var boundten = require('./boundbyten');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -298,15 +299,7 @@ app.post('/add/activity/:id/comment', function (req, res) {
     //CALCULATE NEW RATING
     var sum = 0;
     activity.comments.forEach(element => {
-      if (parseInt(element.hypeRating) < 0) {
-        sum += 0;
-      }
-      else if (parseInt(element.hypeRating) > 10) {
-        sum += 10;
-      }
-      else {
-        sum += parseInt(element.hypeRating);
-      }
+      sum += boundten.boundbyten(parseInt(element.hypeRating));
       console.log("adding rating of " + element.hypeRating + " to get a sum of " + sum)
     });
     activity.hype = (sum / activity.comments.length);
@@ -339,15 +332,7 @@ app.post('/api/add/activity/:id/comment', function (req, res) {
     //CALCULATE NEW RATING
     var sum = 0;
     activity.comments.forEach(element => {
-      if (parseInt(element.hypeRating) < 0) {
-        sum += 0;
-      }
-      else if (parseInt(element.hypeRating) > 10) {
-        sum += 10;
-      }
-      else {
-        sum += parseInt(element.hypeRating);
-      }
+      sum += boundten.boundbyten(parseInt(element.hypeRating));
       console.log("adding rating of " + element.hypeRating + " to get a sum of " + sum)
     });
     activity.hype = (sum / activity.comments.length);
