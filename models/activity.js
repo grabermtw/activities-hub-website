@@ -26,6 +26,9 @@ var activitySchema = new mongoose.Schema({
         type: String,
        // required: true
     },
+    hype: {
+        type: Number,
+    },
     description: {
         type: String
     },

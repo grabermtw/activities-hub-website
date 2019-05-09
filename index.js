@@ -31,16 +31,16 @@ var dataUtil = require("./data-utils");
 
 // Activities data
 var act_DATA;
-Activity.find({},function(err, myActivities){
-  if(err) throw err
+Activity.find({}, function (err, myActivities) {
+  if (err) throw err
   act_DATA = myActivities;
 });
 
 // Group Data
 var group_DATA;
-Group.find({}, function(err, myGroups) {
-	if (err) throw err;
-	group_DATA = myGroups;
+Group.find({}, function (err, myGroups) {
+  if (err) throw err;
+  group_DATA = myGroups;
 });
 
 // Connect to MongoDB
@@ -59,8 +59,8 @@ mongoose.connection.on('error', function () {
  */
 
 app.get('/', function (req, res) {
-  Activity.find({},function(err, myActivities){
-    if(err) throw err
+  Activity.find({}, function (err, myActivities) {
+    if (err) throw err
     act_DATA = myActivities;
   });
   res.render("home", { data: act_DATA, search_msg: "Not finding what you're looking for? Be the first to add that activity!" });
@@ -70,9 +70,9 @@ app.get('/', function (req, res) {
 // -- THEORETICALLY THIS SHOULD WORK -- need to use something other than estimatedDocumentCount(), it doesn't like that for somereason.
 // check the mongoose documentation
 app.get('/random', function (req, res) {
-  
-  Activity.find({},function(err, myActivities){
-    if(err) throw err
+
+  Activity.find({}, function (err, myActivities) {
+    if (err) throw err
     act_DATA = myActivities;
   });
   var rand = Math.floor(Math.random() * Math.floor(act_DATA.length));
@@ -80,129 +80,202 @@ app.get('/random', function (req, res) {
 })
 
 // Displays the activity with the most comments
-app.get('/most',function(req,res){
+app.get('/most', function (req, res) {
   var max = 0;
   var most = [];
-  for(var i = 0; i < act_DATA.length; i++){
-    if (act_DATA[i].comments.length > max){
+  for (var i = 0; i < act_DATA.length; i++) {
+    if (act_DATA[i].comments.length > max) {
       max = act_DATA[i].comments.length;
       most = [];
       most.push(act_DATA[i]);
     }
-    else if (act_DATA[i].comments.length === max){
+    else if (act_DATA[i].comments.length === max) {
       most.push(act_DATA[i]);
     }
   }
-  res.render("home",{data: most})
+  res.render("home", { data: most })
 })
 
 // Displays the activities with the least comments
-app.get('/least',function(req,res){
+app.get('/least', function (req, res) {
   var min = act_DATA[0].comments.length;
   var least = [];
-  for(var i = 0; i < act_DATA.length; i++){
-    if (act_DATA[i].comments.length < min){
+  for (var i = 0; i < act_DATA.length; i++) {
+    if (act_DATA[i].comments.length < min) {
       min = act_DATA[i].comments.length;
       least = [];
       least.push(act_DATA[i]);
     }
-    else if (act_DATA[i].comments.length === min){
+    else if (act_DATA[i].comments.length === min) {
       least.push(act_DATA[i]);
     }
   }
-  res.render("home",{data: least})
+  res.render("home", { data: least })
+})
+
+// Displays best-rated activity
+app.get("/best/", function(req, res) {
+  var max = 0;
+  var best = [];
+  for(var i = 0; i < act_DATA.length; i++){
+    if (act_DATA[i].hype > max){
+      max = act_DATA[i].hype;
+      best = [];
+      best.push(act_DATA[i]);
+    }
+    else if (act_DATA[i].hype === max){
+      best.push(act_DATA[i]);
+    }
+  }
+  res.render("home",{data: best})
+});
+
+
+// GETS best-rated activity
+app.get("/api/best/", function(req, res) {
+  var max = 0;
+  var best = [];
+  for(var i = 0; i < act_DATA.length; i++){
+    if (act_DATA[i].hype > max){
+      max = act_DATA[i].hype;
+      best = [];
+      best.push(act_DATA[i]);
+    }
+    else if (act_DATA[i].hype === max){
+      best.push(act_DATA[i]);
+    }
+  }
+  res.json(best);
+});
+
+
+// GETS the worst-rated activity
+app.get("/worst/", function(req, res) {
+  var min = act_DATA[0].hype;
+  var worst = [];
+  for(var i = 0; i < act_DATA.length; i++){
+    if (act_DATA[i].hype < min){
+      min = act_DATA[i].hype;
+      worst = [];
+      worst.push(act_DATA[i]);
+    }
+    else if (act_DATA[i].hype === min){
+      worst.push(act_DATA[i]);
+    }
+  }
+  res.render("home",{data: worst})
+})
+
+
+// GETS the worst-rated activity
+app.get("/api/worst/", function(req, res) {
+  var min = act_DATA[0].hype;
+  var worst = [];
+  for(var i = 0; i < act_DATA.length; i++){
+    if (act_DATA[i].hype < min){
+      min = act_DATA[i].hype;
+      worst = [];
+      worst.push(act_DATA[i]);
+    }
+    else if (act_DATA[i].hype === min){
+      worst.push(act_DATA[i]);
+    }
+  }
+  res.json(worst)
 })
 
 // -- DONE -- renders page to create a new activity (that page is not done)
 app.get("/add/activity", function (req, res) {
-  	res.render('create');
+  res.render('create');
 });
 
 app.get("/add/group", function (req, res) {
-  	res.render('create_group');
+  res.render('create_group');
 });
 
 app.get("/chat", function (req, res) {
-  	res.render('chat');
+  res.render('chat');
 });
 
 app.get("/groups", function (req, res) {
-	res.render("view_groups", { data: group_DATA })
+  res.render("view_groups", { data: group_DATA })
 });
 
 // -- DONE -- adds new activity via postman
-app.post('/api/add/activity', function(req, res) {
+app.post('/api/add/activity', function (req, res) {
   console.log(req.body.name);
   var activity = new Activity({
-    
-      name: req.body.name,
-      description: req.body.description,
-      where: req.body.where,
-      when: req.body.when,
-      author: req.body.author,
-      comments: []
+
+    name: req.body.name,
+    hype: 0,
+    description: req.body.description,
+    where: req.body.where,
+    when: req.body.when,
+    author: req.body.author,
+    comments: []
   })
 
-  activity.save(function(err) {
-      if(err) throw err
-      return res.send("Activity added!")
+  activity.save(function (err) {
+    if (err) throw err
+    return res.send("Activity added!")
   })
 });
 
 // -- DONE -- adds new activity from Add Activity page
-app.post('/add/activity', function(req, res) {
+app.post('/add/activity', function (req, res) {
   var activity = new Activity({
-      name: req.body.name,
-      description: req.body.description,
-      where: req.body.where,
-      when: req.body.when,
-      author: req.body.author,
-      comments: []
+    name: req.body.name,
+    hype: 0,
+    description: req.body.description,
+    where: req.body.where,
+    when: req.body.when,
+    author: req.body.author,
+    comments: []
   })
 
-  activity.save(function(err) {
-      if(err) throw err
-      Activity.find({},function(err, myActivities){
-        if(err) throw err
-        act_DATA = myActivities;
-      });
-      res.redirect("/");
+  activity.save(function (err) {
+    if (err) throw err
+    Activity.find({}, function (err, myActivities) {
+      if (err) throw err
+      act_DATA = myActivities;
+    });
+    res.redirect("/");
   })
 });
 
 // add new group from Add Group page
-app.post('/add/group', function(req, res) {
+app.post('/add/group', function (req, res) {
   var group = new Group({
-      name: req.body.name,
-      description: req.body.description,
-      memberCount: req.body.membercount,
-      location: req.body.location,
-      contactInfo: req.body.contact
+    name: req.body.name,
+    description: req.body.description,
+    memberCount: req.body.membercount,
+    location: req.body.location,
+    contactInfo: req.body.contact
   })
 
-  group.save(function(err) {
-      if(err) throw err
-      Group.find({},function(err, myGroups){
-        if(err) throw err
-        group_DATA = myGroups;
-      });
-      res.redirect("/");
+  group.save(function (err) {
+    if (err) throw err
+    Group.find({}, function (err, myGroups) {
+      if (err) throw err
+      group_DATA = myGroups;
+    });
+    res.redirect("/");
   })
 });
 
 // add new group via POST request
-app.post('/api/add/group', function(req, res) {
+app.post('/api/add/group', function (req, res) {
   var group = new Group({
-      name: req.body.name,
-      description: req.body.description,
-      memberCount: req.body.membercount,
-      location: req.body.location,
-      contactInfo: req.body.contact
+    name: req.body.name,
+    description: req.body.description,
+    memberCount: req.body.membercount,
+    location: req.body.location,
+    contactInfo: req.body.contact
   })
 
-  group.save(function(err) {
-      if(err) throw err
-      return res.send("Group added!")
+  group.save(function (err) {
+    if (err) throw err
+    return res.send("Group added!")
   })
 });
 
@@ -221,10 +294,27 @@ app.post('/add/activity/:id/comment', function (req, res) {
         instead we use .concat()
     */
     activity.comments = activity.comments.concat([comment])
+    
+    //CALCULATE NEW RATING
+    var sum = 0;
+    activity.comments.forEach(element => {
+      if (parseInt(element.hypeRating) < 0) {
+        sum += 0;
+      }
+      else if (parseInt(element.hypeRating) > 10) {
+        sum += 10;
+      }
+      else {
+        sum += parseInt(element.hypeRating);
+      }
+      console.log("adding rating of " + element.hypeRating + " to get a sum of " + sum)
+    });
+    activity.hype = (sum / activity.comments.length);
+
     activity.save(function (err) {
       if (err) throw err
       res.redirect("/");
-      
+
     })
   });
 });
@@ -245,6 +335,23 @@ app.post('/api/add/activity/:id/comment', function (req, res) {
         instead we use .concat()
     */
     activity.comments = activity.comments.concat([comment])
+
+    //CALCULATE NEW RATING
+    var sum = 0;
+    activity.comments.forEach(element => {
+      if (parseInt(element.hypeRating) < 0) {
+        sum += 0;
+      }
+      else if (parseInt(element.hypeRating) > 10) {
+        sum += 10;
+      }
+      else {
+        sum += parseInt(element.hypeRating);
+      }
+      console.log("adding rating of " + element.hypeRating + " to get a sum of " + sum)
+    });
+    activity.hype = (sum / activity.comments.length);
+
     activity.save(function (err) {
       if (err) throw err
       return res.send("Comment added to the activity!")
@@ -259,21 +366,21 @@ app.post('/api/add/activity/:id/comment', function (req, res) {
 // });
 
 // connects chatroom socket
-io.on('connection', function(socket) {
-    console.log('NEW connection.');
-    io.on('disconnect', function(){
-        console.log('Oops. A user disconnected.');
-    });
-    socket.on('chat message', function(msg) {
-        io.emit('chat message', msg);
-    });
+io.on('connection', function (socket) {
+  console.log('NEW connection.');
+  io.on('disconnect', function () {
+    console.log('Oops. A user disconnected.');
+  });
+  socket.on('chat message', function (msg) {
+    io.emit('chat message', msg);
+  });
 });
 
 // -- DONE -- deletes activity by ID
-app.delete('/api/activity/:id', function(req, res) {
-  Movie.findByIdAndRemove(req.param.id, function(err, activity){
-      if(!activity) return res.send("Not Deleted")
-      res.send("Deleted")
+app.delete('/api/activity/:id', function (req, res) {
+  Movie.findByIdAndRemove(req.param.id, function (err, activity) {
+    if (!activity) return res.send("Not Deleted")
+    res.send("Deleted")
   })
 });
 
