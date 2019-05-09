@@ -11,6 +11,8 @@ var boundten = require('./boundbyten');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var validator = require('validator');
+var roundto = require('round-to');
 var Activity = schemas.activity;
 var Group = schemas.group;
 
@@ -194,6 +196,10 @@ app.get("/add/group", function (req, res) {
   res.render('create_group');
 });
 
+app.get("/add/group/error", function (req, res) {
+  res.render('create_group_error');
+});
+
 app.get("/chat", function (req, res) {
   res.render('chat');
 });
@@ -246,22 +252,26 @@ app.post('/add/activity', function (req, res) {
 
 // add new group from Add Group page
 app.post('/add/group', function (req, res) {
-  var group = new Group({
-    name: req.body.name,
-    description: req.body.description,
-    memberCount: req.body.membercount,
-    location: req.body.location,
-    contactInfo: req.body.contact
-  })
+  	if (!validator.isEmail(req.body.contact) && !validator.isMobilePhone(req.body.contact)) {
+  		res.redirect('/add/group/error')
+  	} else {
+	  	var group = new Group({
+	    	name: req.body.name,
+	    	description: req.body.description,
+	    	memberCount: req.body.membercount,
+	    	location: req.body.location,
+	    	contactInfo: req.body.contact
+	  	})
 
-  group.save(function (err) {
-    if (err) throw err
-    Group.find({}, function (err, myGroups) {
-      if (err) throw err
-      group_DATA = myGroups;
-    });
-    res.redirect("/");
-  })
+	  	group.save(function (err) {
+	    	if (err) throw err
+	    	Group.find({}, function (err, myGroups) {
+		      	if (err) throw err
+		      	group_DATA = myGroups;
+	    	});
+	   	});
+	    res.redirect("/");
+	}
 });
 
 // add new group via POST request
@@ -302,12 +312,11 @@ app.post('/add/activity/:id/comment', function (req, res) {
       sum += boundten.boundbyten(parseInt(element.hypeRating));
       console.log("adding rating of " + element.hypeRating + " to get a sum of " + sum)
     });
-    activity.hype = (sum / activity.comments.length);
+    activity.hype = roundto((sum / activity.comments.length), 2);
 
     activity.save(function (err) {
       if (err) throw err
       res.redirect("/");
-
     })
   });
 });
@@ -335,7 +344,7 @@ app.post('/api/add/activity/:id/comment', function (req, res) {
       sum += boundten.boundbyten(parseInt(element.hypeRating));
       console.log("adding rating of " + element.hypeRating + " to get a sum of " + sum)
     });
-    activity.hype = (sum / activity.comments.length);
+    activity.hype = roundto((sum / activity.comments.length), 2);
 
     activity.save(function (err) {
       if (err) throw err
@@ -361,17 +370,17 @@ io.on('connection', function (socket) {
   });
 });
 
-// -- NOT DONE -- deletes activity by ID
+// Delete activity
 app.delete('/api/activity/:id', function (req, res) {
-  Activity.findByIdAndRemove(req.param.id, function (err, activity) {
-    if (!activity) return res.send("Not Deleted")
+  Activity.findByIdAndRemove(mongoose.Types.ObjectId(req.params.id), function (err, activity) {
+    if (!activity) return res.send("Not Deleted: " + req.params.id)
     res.send("Deleted activity")
   });
 });
 
-// -- NOT DONE -- deletes group by ID
+// Delete group
 app.delete('/api/group/:id', function (req, res) {
-  Group.findByIdAndRemove(req.param.id, function (err, group) {
+  Group.findByIdAndRemove(req.params.id, function (err, group) {
     if (!group) return res.send("Not Deleted")
     res.send("Deleted group")
   });
