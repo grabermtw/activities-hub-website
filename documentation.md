@@ -176,4 +176,12 @@ Navigation Filters
 6. Least Hype -> `/worst`
 7. View Groups -> `/groups`
 
+### 6. Modules
 
+activity.js exports the three schemas for use in index.js
+boundbyten.js exports a function that ensures all hype values are between 0 and 10
+
+
+### 7. New NPM Packages
+1. roundto.js: Used for rounding hype ratings
+2. validator.js: Ensures that group contact info is in the correct format
