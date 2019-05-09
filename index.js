@@ -84,6 +84,10 @@ app.get('/random', function (req, res) {
   res.render("home", { data: [act_DATA[rand]] })
 })
 
+app.get('/about', function (req, res) {
+  res.render("about");
+});
+
 // Displays the activity with the most comments
 app.get('/most', function (req, res) {
   var max = 0;
