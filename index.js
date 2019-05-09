@@ -69,9 +69,11 @@ app.get('/', function (req, res) {
   res.render("home", { data: act_DATA, search_msg: "Not finding what you're looking for? Be the first to add that activity!" });
 });
 
+app.get('/about', function (req, res){
+  res.render("about");
+})
 
-// -- THEORETICALLY THIS SHOULD WORK -- need to use something other than estimatedDocumentCount(), it doesn't like that for somereason.
-// check the mongoose documentation
+// -- DONE -- Displays a random activity
 app.get('/random', function (req, res) {
 
   Activity.find({}, function (err, myActivities) {

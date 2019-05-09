@@ -18,10 +18,36 @@ URL:
 
 
 
-Schema: 
+activitySchema: 
 ```javascript
 {
-   
+   name: String,
+    hype: Number,
+    description: String,
+    where: String,
+    when: String,
+    author: String
+    comments: [commentSchema]
+}
+```
+
+commentSchema: 
+```javascript
+{
+  hypeRating: Number,
+    comment: String,
+    author: String,
+}
+```
+
+groupSchema: 
+```javascript
+{
+  name: String,
+    description: String,
+    memberCount: Number,
+    location: String,
+    contactInfo: String
 }
 ```
 
