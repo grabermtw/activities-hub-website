@@ -79,6 +79,40 @@ app.get('/random', function (req, res) {
   res.render("home", { data: [act_DATA[rand]] })
 })
 
+// Displays the activity with the most comments
+app.get('/most',function(req,res){
+  var max = 0;
+  var most = [];
+  for(var i = 0; i < act_DATA.length; i++){
+    if (act_DATA[i].comments.length > max){
+      max = act_DATA[i].comments.length;
+      most = [];
+      most.push(act_DATA[i]);
+    }
+    else if (act_DATA[i].comments.length === max){
+      most.push(act_DATA[i]);
+    }
+  }
+  res.render("home",{data: most})
+})
+
+// Displays the activities with the least comments
+app.get('/least',function(req,res){
+  var min = act_DATA[0].comments.length;
+  var least = [];
+  for(var i = 0; i < act_DATA.length; i++){
+    if (act_DATA[i].comments.length < min){
+      min = act_DATA[i].comments.length;
+      least = [];
+      least.push(act_DATA[i]);
+    }
+    else if (act_DATA[i].comments.length === min){
+      least.push(act_DATA[i]);
+    }
+  }
+  res.render("home",{data: least})
+})
+
 // -- DONE -- renders page to create a new activity (that page is not done)
 app.get("/add/activity", function (req, res) {
   	res.render('create');
