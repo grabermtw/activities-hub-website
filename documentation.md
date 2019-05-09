@@ -3,7 +3,7 @@
 
 ---
 
-Names: Matthew Graber, Eli Schrelling, Justin Shaw
+Names: Matthew Graber, Eli Schwelling, Justin Shaw
 
 Date: 5/2/2019
 

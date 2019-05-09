@@ -2,10 +2,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var exphbs = require('express-handlebars');
-var moment = require('moment');
 var mongoose = require('mongoose');
 var dotenv = require('dotenv');
-var marked = require('marked');
 var schemas = require('./models/activity');
 var boundten = require('./boundbyten');
 var app = express();
@@ -25,12 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.use('/public', express.static('public'));
-var dataUtil = require("./data-utils");
 
-//OLD!!!!
-//var _DATA = dataUtil.loadData().food_reviews;
-//var foods = [];
-//_DATA.forEach(element => foods.push(element.name));
 
 // Activities data
 var act_DATA;
