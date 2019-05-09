@@ -1,21 +1,24 @@
 {{#each data}}
-    <table class="groups">
-    	<div class="group">
-	        <tr class="group_name">
-	            <td> {{ name }}</td>
-	        </tr>
-	         <tr class="description">
-	            <td> {{ description }} </td>
-	        </tr>
-	        <tr class="member_count">
-	            <td> {{ memberCount }} members </td>
-	        </tr>
-	        <tr class="where">
-	            <td> At {{ location }} </td>
-	        </tr>
-	        <tr class="group_contact">
-	            <td> Contact using {{ contactInfo }} </td>
-	        </tr>
-    	</div>
-    </table>
+<table class="groups">
+	<div class="group">
+		<tr class="group_name">
+			<td> {{ name }}</td>
+		</tr>
+		<tr class="description">
+			<td> {{ description }} </td>
+		</tr>
+		<tr class="member_count">
+			<td> {{ memberCount }} members </td>
+		</tr>
+		<tr class="where">
+			<td> At {{ location }} </td>
+		</tr>
+		<tr class="group_contact">
+			<td> Contact using {{ contactInfo }} </td>
+		</tr>
+		<tr class="id">
+			<td> Group ID: {{ id }}</td>
+		</tr>
+	</div>
+</table>
 {{/each}}

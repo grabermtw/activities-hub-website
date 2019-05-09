@@ -376,12 +376,20 @@ io.on('connection', function (socket) {
   });
 });
 
-// -- DONE -- deletes activity by ID
+// -- NOT DONE -- deletes activity by ID
 app.delete('/api/activity/:id', function (req, res) {
-  Movie.findByIdAndRemove(req.param.id, function (err, activity) {
+  Activity.findByIdAndRemove(req.param.id, function (err, activity) {
     if (!activity) return res.send("Not Deleted")
-    res.send("Deleted")
-  })
+    res.send("Deleted activity")
+  });
+});
+
+// -- NOT DONE -- deletes group by ID
+app.delete('/api/group/:id', function (req, res) {
+  Group.findByIdAndRemove(req.param.id, function (err, group) {
+    if (!group) return res.send("Not Deleted")
+    res.send("Deleted group")
+  });
 });
 
 // -- DONE --
