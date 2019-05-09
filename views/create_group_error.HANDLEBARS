@@ -1,0 +1,22 @@
+<h1 id="createTitle">Create New Group</h1>
+<article class="create">
+    <form method="POST" action="/add/group">
+        <div id="err_msg" style="color: red; padding-bottom: 5px;">Error: contact info must be a valid email address or phone number!</div>
+        <div class="input-field">
+            <input type="text" name="name" size="50" placeholder="Group name...">
+        </div>
+         <div class="input-field">
+            <textarea type="text" name="description" rows="20" placeholder="Group description..."></textarea>
+        </div>
+        <div class="input-field">
+            <input type="number" min=1 name="membercount" size="50" placeholder="Number of members...">
+        </div>
+        <div class="input-field">
+            <input type="text" name="location" size="50" placeholder="Group location...">
+        </div>
+        <div class="input-field">
+            <input type="text" name="contact" size="50" placeholder="Group contact info...">
+        </div>
+        <button type="submit">Submit your group!</button>
+    </form>
+</article>
