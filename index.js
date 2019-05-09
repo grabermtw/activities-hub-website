@@ -69,6 +69,15 @@ app.get('/', function (req, res) {
   res.render("home", { data: act_DATA, search_msg: "Not finding what you're looking for? Be the first to add that activity!" });
 });
 
+// Returns all activities as json
+app.get('/api/activity', function (req, res) {
+  Activity.find({}, function (err, myActivities) {
+    if (err) throw err
+    act_DATA = myActivities;
+  });
+  res.json(act_DATA);
+});
+
 // -- DONE -- Displays a random activity
 app.get('/random', function (req, res) {
 
@@ -207,7 +216,19 @@ app.get("/chat", function (req, res) {
 });
 
 app.get("/groups", function (req, res) {
+  Group.find({}, function (err, myGroups) {
+    if (err) throw err
+    group_DATA = myGroups;
+  });
   res.render("view_groups", { data: group_DATA })
+});
+
+app.get("/api/groups", function (req, res) {
+  Group.find({}, function (err, myGroups) {
+    if (err) throw err
+    group_DATA = myGroups;
+  });
+  res.json(group_DATA)
 });
 
 // -- DONE -- adds new activity via postman
