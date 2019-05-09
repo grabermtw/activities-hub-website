@@ -14,8 +14,7 @@ URL: https://activities-hub.herokuapp.com/
 ---
 
 
-### 1. Data Format and Storage (NEEDS TO BE COMPLETED)
-
+### 1. Data Format and Storage
 
 
 activitySchema: 
