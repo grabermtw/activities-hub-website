@@ -339,6 +339,7 @@ a:hover, a:active {
  }
 
  .about {
+    padding-top: 10px;
     background-image: linear-gradient(#00FFE0, #0087FF);
     padding: 50px;
     border-radius: 25px;
