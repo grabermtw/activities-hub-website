@@ -16,19 +16,8 @@ function saveData(data) {
     fs.writeFileSync('data.json', JSON.stringify(obj));
 }
 
-function getAllFood(data) {
-    var allFood = [];
-    for(var i = 0; i < data.length; i++) {
-        var food = data[i].food;
-        
-        if(!~allFood.indexOf(food)) allFood.push(food);
-        
-    }
-    return allFood;
-}
 
 module.exports = {
     loadData: loadData,
     saveData: saveData,
-    getAllFood: getAllFood
 }

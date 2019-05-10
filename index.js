@@ -2,15 +2,15 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var exphbs = require('express-handlebars');
-var moment = require('moment');
 var mongoose = require('mongoose');
 var dotenv = require('dotenv');
-var marked = require('marked');
 var schemas = require('./models/activity');
 var boundten = require('./boundbyten');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var validator = require('validator');
+var roundto = require('round-to');
 var Activity = schemas.activity;
 var Group = schemas.group;
 
@@ -23,12 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.use('/public', express.static('public'));
-var dataUtil = require("./data-utils");
 
-//OLD!!!!
-//var _DATA = dataUtil.loadData().food_reviews;
-//var foods = [];
-//_DATA.forEach(element => foods.push(element.name));
 
 // Activities data
 var act_DATA;
@@ -67,9 +62,16 @@ app.get('/', function (req, res) {
   res.render("home", { data: act_DATA, search_msg: "Not finding what you're looking for? Be the first to add that activity!" });
 });
 
+// Returns all activities as json
+app.get('/api/activity', function (req, res) {
+  Activity.find({}, function (err, myActivities) {
+    if (err) throw err
+    act_DATA = myActivities;
+  });
+  res.json(act_DATA);
+});
 
-// -- THEORETICALLY THIS SHOULD WORK -- need to use something other than estimatedDocumentCount(), it doesn't like that for somereason.
-// check the mongoose documentation
+// -- DONE -- Displays a random activity
 app.get('/random', function (req, res) {
 
   Activity.find({}, function (err, myActivities) {
@@ -79,6 +81,10 @@ app.get('/random', function (req, res) {
   var rand = Math.floor(Math.random() * Math.floor(act_DATA.length));
   res.render("home", { data: [act_DATA[rand]] })
 })
+
+app.get('/about', function (req, res) {
+  res.render("about");
+});
 
 // Displays the activity with the most comments
 app.get('/most', function (req, res) {
@@ -194,12 +200,28 @@ app.get("/add/group", function (req, res) {
   res.render('create_group');
 });
 
+app.get("/add/group/error", function (req, res) {
+  res.render('create_group_error');
+});
+
 app.get("/chat", function (req, res) {
   res.render('chat');
 });
 
 app.get("/groups", function (req, res) {
+  Group.find({}, function (err, myGroups) {
+    if (err) throw err
+    group_DATA = myGroups;
+  });
   res.render("view_groups", { data: group_DATA })
+});
+
+app.get("/api/groups", function (req, res) {
+  Group.find({}, function (err, myGroups) {
+    if (err) throw err
+    group_DATA = myGroups;
+  });
+  res.json(group_DATA)
 });
 
 // -- DONE -- adds new activity via postman
@@ -246,22 +268,26 @@ app.post('/add/activity', function (req, res) {
 
 // add new group from Add Group page
 app.post('/add/group', function (req, res) {
-  var group = new Group({
-    name: req.body.name,
-    description: req.body.description,
-    memberCount: req.body.membercount,
-    location: req.body.location,
-    contactInfo: req.body.contact
-  })
+  	if (!validator.isEmail(req.body.contact) && !validator.isMobilePhone(req.body.contact)) {
+  		res.redirect('/add/group/error')
+  	} else {
+	  	var group = new Group({
+	    	name: req.body.name,
+	    	description: req.body.description,
+	    	memberCount: req.body.membercount,
+	    	location: req.body.location,
+	    	contactInfo: req.body.contact
+	  	})
 
-  group.save(function (err) {
-    if (err) throw err
-    Group.find({}, function (err, myGroups) {
-      if (err) throw err
-      group_DATA = myGroups;
-    });
-    res.redirect("/");
-  })
+	  	group.save(function (err) {
+	    	if (err) throw err
+	    	Group.find({}, function (err, myGroups) {
+		      	if (err) throw err
+		      	group_DATA = myGroups;
+	    	});
+	   	});
+	    res.redirect("/");
+	}
 });
 
 // add new group via POST request
@@ -302,12 +328,11 @@ app.post('/add/activity/:id/comment', function (req, res) {
       sum += boundten.boundbyten(parseInt(element.hypeRating));
       console.log("adding rating of " + element.hypeRating + " to get a sum of " + sum)
     });
-    activity.hype = (sum / activity.comments.length);
+    activity.hype = roundto((sum / activity.comments.length), 2);
 
     activity.save(function (err) {
       if (err) throw err
       res.redirect("/");
-
     })
   });
 });
@@ -335,7 +360,7 @@ app.post('/api/add/activity/:id/comment', function (req, res) {
       sum += boundten.boundbyten(parseInt(element.hypeRating));
       console.log("adding rating of " + element.hypeRating + " to get a sum of " + sum)
     });
-    activity.hype = (sum / activity.comments.length);
+    activity.hype = roundto((sum / activity.comments.length), 2);
 
     activity.save(function (err) {
       if (err) throw err
@@ -361,17 +386,17 @@ io.on('connection', function (socket) {
   });
 });
 
-// -- NOT DONE -- deletes activity by ID
+// Delete activity
 app.delete('/api/activity/:id', function (req, res) {
-  Activity.findByIdAndRemove(req.param.id, function (err, activity) {
-    if (!activity) return res.send("Not Deleted")
+  Activity.findByIdAndRemove(mongoose.Types.ObjectId(req.params.id), function (err, activity) {
+    if (!activity) return res.send("Not Deleted: " + req.params.id)
     res.send("Deleted activity")
   });
 });
 
-// -- NOT DONE -- deletes group by ID
+// Delete group
 app.delete('/api/group/:id', function (req, res) {
-  Group.findByIdAndRemove(req.param.id, function (err, group) {
+  Group.findByIdAndRemove(req.params.id, function (err, group) {
     if (!group) return res.send("Not Deleted")
     res.send("Deleted group")
   });
