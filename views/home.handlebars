@@ -11,31 +11,33 @@
     <div id="recent_title">Recently Posted Activities</div>
     {{#each data}}
     <table class="activities" name="{{ name }}" id="{{ name }}">
+        <div class="description">
         <div class="activity">
             <tr class="activity_name">
                 <td> {{ name }}</td>
             </tr>
-            <tr class="hype">
+            <tr class="hype" style="color: #E400FF">
                 <td> Hype Rating: {{ hype }}/10 </td>
             </tr>
-            <tr class="author">
+            <tr class="author" style="color: white">
                 <td> Hosted by {{ author }} </td>
             </tr>
-            <tr class="description">
+            <tr class="description" style="color: white">
                 <td> {{ description }} </td>
             </tr>
-            <tr class="where">
+            <tr class="where" style="color: white">
                 <td> At {{ where }} </td>
             </tr>
-            <tr class="when">
+            <tr class="when" style="color: white">
                 <td> Starts {{ when }} </td>
             </tr>
+        </div>
         </div>
         {{#each comments}}
         <div class="comment">
             <tr class="underline_text">
-                <td>Commenter:</td>
-                <td>{{ author }}</td>
+                    <td style="color: black">Commenter:</td>
+                <td style="color: black">{{ author }}</td>
             </tr>
             <tr>
                 <td>Hype Rating:</td>
@@ -49,10 +51,10 @@
         {{/each}}
         <div class="comment_adder">
             <form method="POST" action="/add/activity/{{ id }}/comment">
-                <div class="input_number">
+                <div class="input_number" style="text-align: center" >
                     <input type="number" min=0 max=10 name="hypeRating" size="50" placeholder="Hype">
                 </div>
-                <div class="input-text1">
+                <div class="input_text1">
                     <input type="text" name="comment" size="20" placeholder="Your comment...">
                 </div>
                 <div class="input_text2">
@@ -64,7 +66,7 @@
             </form>
         </div>
 
-        <tr class="id">
+        <tr class="id" style="color: #00FFE0">
             <td>Activity ID:</td>
             <td> {{ id }}</td>
         </tr>
