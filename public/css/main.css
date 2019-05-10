@@ -43,6 +43,7 @@ body {
 p {
     font-family: Arial, Helvetica, sans-serif;
     background-color:rgba(255, 255, 126, .75);
+        /*background-color: linear-gradient(#00FFE0, #0087FF);*/
     text-align: center;
     font-size: 20pt;
 }
@@ -50,14 +51,16 @@ p {
 .nav {
     font-family: Arial, Helvetica, sans-serif; 
     color:white;
+/*    background-color: linear-gradient(#00FFE0, #0087FF);*/
     text-align: center;
 }
 
 a:link, a:visited {
     margin-top: 5px;
     border-radius: 5px;
-    background-color: rgb(255, 0, 0);
-    color: white;
+    /*background-color: rgb(255, 0, 0);*/
+    background-image: linear-gradient(#00FFE0, #0087FF);
+    color: black;
     padding: 5px 5px;
     text-align: center; 
     text-decoration: none;
@@ -65,7 +68,9 @@ a:link, a:visited {
 }
 
 a:hover, a:active {
-    background-color: rgb(255, 107, 107);
+    /*background-color: rgb(255, 107, 107);*/
+    background-image: linear-gradient(#6800FF, #FF00F3);
+    color: white;
 }
 
 .logo {
@@ -101,8 +106,8 @@ a:hover, a:active {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
     font-weight: bold;
-    padding-bottom: 5px;
-    color: gray;
+    padding: 10px;
+    color: white;
 }
 
 .activity {
@@ -167,21 +172,69 @@ a:hover, a:active {
  Input box adjustments
  */
  form input {
-     border: 0;
+     border: 2px solid #00FFE0;
      padding: 10px;
      width: 89%;
      /*margin-right: .5%;*/
      display: inline-block;
+     border-radius: 25px;
  }
- 
+
+ .comment_adder {
+    border: 2px solid #0087FF;
+     padding: 10px;
+     /*width: 89%;*/
+     /*margin-right: .5%;*/
+     display: inline-block;
+     border-radius: 25px;
+ }
+
+ .input_number {
+    border-radius: 25px;
+    border: 2px solid #00FFE0;
+ }
+
+ .input_text1 {
+    border-radius: 25px;
+    border: 2px solid #00FFE0;
+ }
+
+/* .input_text1:focus, .input_text1:active {
+    border: 2px solid #FFE000;
+ }*/
+
+ .input_text2 {
+    border-radius: 25px;
+    border: 2px solid #00FFE0;
+ }
+
+ .submit_comment {
+    /*width: 9%;*/
+     /*background: red;*/
+    background-image: linear-gradient(#00FFE0, #0087FF);
+     border: 2px solid white;
+     padding: 10px;
+     border-radius: 25px;
+ }
+
+ input[type=text]:focus {
+    border: 2x solid #FFE000;
+ }
+
  /*
  Button adjustments
  */
  form button {
      width: 9%;
-     background: red;
-     border: none;
+     /*background: red;*/
+    background-image: linear-gradient(#00FFE0, #0087FF);
+     border: 2px solid white;
      padding: 10px;
+     border-radius: 25px;
+ }
+
+ form button:active, form button:hover {
+    background-image: linear-gradient(#6800FF, #FF00F3);
  }
 
  .hub {
@@ -208,7 +261,8 @@ a:hover, a:active {
  }
 
 .hub span:nth-child(2) {
-  background: red;
+  /*background: red;*/
+  background-image: linear-gradient(#00FFE0, #0087FF);
   color: #000000;
   border-radius: 1vw;
   padding: 0 1vw 1vw 1vw;
@@ -223,9 +277,25 @@ a:hover, a:active {
  
  #messages li {
      padding: 5px 10px;
-     background: red;
+     background: #0087FF;
+    border-radius: 25px;
+    border: 2px solid white;
+    color: white;
  }
  
  #messages li:nth-child(odd) {
-     background: grey;
+     background: #00FFE0;
+     color: black;
+ }
+
+ #box {
+    position: fixed;
+ }
+
+ .activities {
+    /*background: #1F1F21;*/
+    background-image: linear-gradient(#00FFE0, #0087FF);
+    padding: 20px;
+    border-radius: 25px;
+    border: 2px solid white;
  }

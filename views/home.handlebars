@@ -47,18 +47,20 @@
             </tr>
         </div>
         {{/each}}
-        <div class="comment adder">
+        <div class="comment_adder">
             <form method="POST" action="/add/activity/{{ id }}/comment">
-                <div class="input-field">
+                <div class="input_number">
                     <input type="number" min=0 max=10 name="hypeRating" size="50" placeholder="Hype">
                 </div>
-                <div class="input-field">
+                <div class="input_text1">
                     <textarea type="text" name="comment" rows="2" placeholder="Your comment..."></textarea>
                 </div>
-                <div class="input-field">
+                <div class="input_text2">
                     <input type="text" name="author" size="20" placeholder="Your name...">
                 </div>
-                <button type="submit">Submit a comment!</button>
+                <div class="submit_comment">
+                    <button type="submit">Submit a comment!</button>
+                </div>
             </form>
         </div>
 
