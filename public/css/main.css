@@ -311,7 +311,9 @@ a:hover, a:active {
  }
 
  .activity {
-    border: 2px solid white;
+    border: 2px solid black;
+    padding-bottom: 20px;
+    padding-top: 20px;
  }
 
  .groups {
