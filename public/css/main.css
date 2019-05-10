@@ -30,10 +30,12 @@ body {
 #search_field {
     display: block;
     margin: auto;
-    border: 2px solid gray;
-    border-radius: 5px;
+    border: 2px solid #0087FF;
+    border-radius: 25px;
     margin-top: 10px;
     margin-bottom: 10px;
+    font-size: 20px;
+    width: 20%;
 }
 
 .underline_text {
@@ -108,6 +110,7 @@ a:hover, a:active {
     font-weight: bold;
     padding: 10px;
     color: white;
+    text-align: center;
 }
 
 .activity {
@@ -118,11 +121,6 @@ a:hover, a:active {
 .group {
     border: 2px solid gray;
     border-radius: 5px;
-}
-
-.activity_name {
-    font-size: 20px;
-    color: gray;
 }
 
 .group_name {
@@ -138,6 +136,7 @@ a:hover, a:active {
 .description {
     font-size: 15px;
     color: rgb(119, 119, 119);
+    /*border: 2px solid #00FFE0;*/
 }
 
 .where {
@@ -182,11 +181,14 @@ a:hover, a:active {
 
  .comment_adder {
     border: 2px solid #0087FF;
-     padding: 10px;
+     /*padding: 10px;*/
      /*width: 89%;*/
      /*margin-right: .5%;*/
      display: inline-block;
      border-radius: 25px;
+    margin-left: 45%;
+    margin-right: 45%;
+    /*width: 50%;*/
  }
 
  .input_number {
@@ -217,6 +219,11 @@ a:hover, a:active {
      border-radius: 25px;
  }
 
+ .submit_comment:hover, .submit_comment:active {
+    color: white;
+    background-image: linear-gradient(#6800FF, #FF00F3);
+ }
+
  input[type=text]:focus {
     border: 2x solid #FFE000;
  }
@@ -234,6 +241,7 @@ a:hover, a:active {
  }
 
  form button:active, form button:hover {
+    color: white;
     background-image: linear-gradient(#6800FF, #FF00F3);
  }
 
@@ -298,4 +306,41 @@ a:hover, a:active {
     padding: 20px;
     border-radius: 25px;
     border: 2px solid white;
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+ }
+
+ .groups {
+    background-image: linear-gradient(#00FFE0, #0087FF);
+    padding: 20px;
+    border-radius: 25px;
+    border: 2px solid white;
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+ }
+
+ .group_name {
+    font-weight: 900;
+    font-size: 4vw;
+    color: black;
+ }
+
+ .activity_name {
+    font-weight: 900;
+    font-size: 4vw;
+    color: black;
+    display: inline;
+ }
+
+ .about {
+    background-image: linear-gradient(#00FFE0, #0087FF);
+    padding: 50px;
+    border-radius: 25px;
+    border: 2px solid white;
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+    color: black;
  }
